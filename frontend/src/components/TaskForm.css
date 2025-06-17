@@ -1,0 +1,75 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3); /* Прозрачный тёмный фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 55px 55px 37px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  font-family: 'Ubuntu-Regular', sans-serif;
+}
+
+.modal-title {
+  font-family: 'Ubuntu-Bold', sans-serif;
+  font-size: 26px;
+  color: #403866;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.modal-form-group {
+  margin-bottom: 25px;
+}
+
+.modal-label {
+  display: block;
+  font-size: 14px;
+  color: #403866;
+  margin-bottom: 5px;
+}
+
+.modal-input {
+  width: 100%;
+  height: 50px;
+  background: #e6e6e6;
+  border-radius: 3px;
+  padding: 0 15px;
+  font-size: 16px;
+  color: #403866;
+}
+
+.modal-textarea {
+  height: 90px;
+  padding: 10px 15px;
+  resize: none;
+}
+
+.modal-button {
+  width: 100%;
+  height: 50px;
+  background: #827ffe;
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Ubuntu-Bold', sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  transition: background 0.4s;
+}
+
+.modal-button:hover {
+  background: #403866;
+}

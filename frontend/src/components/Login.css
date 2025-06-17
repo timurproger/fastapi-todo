@@ -1,0 +1,157 @@
+@font-face {
+  font-family: 'Ubuntu-Regular';
+  src: url('../fonts/ubuntu/Ubuntu-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Ubuntu-Bold';
+  src: url('../fonts/ubuntu/Ubuntu-Bold.ttf');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Ubuntu-Regular', sans-serif;
+  font-weight: 400; /* обычный вес для текста */
+}
+
+a {
+  font-family: 'Ubuntu-Regular', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666666;
+  transition: all 0.4s;
+}
+
+a:hover {
+  color: #403866;
+  text-decoration: none;
+}
+
+input, textarea {
+  outline: none;
+  border: none;
+  font-family: 'Ubuntu-Regular', sans-serif;
+}
+
+button {
+  outline: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-login100 {
+  width: 100%;  
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.wrap-login100 {
+  width: 390px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 55px 55px 37px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.login100-form {
+  width: 100%;
+}
+
+.login100-form-title {
+  display: block;
+  font-family: 'Ubuntu-Bold', sans-serif;
+  font-size: 30px;
+  color: #403866;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.wrap-input100 {
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.input100 {
+  font-family: 'Ubuntu-Regular', sans-serif;
+  font-size: 16px;
+  color: #403866;
+  display: block;
+  width: 100%;
+  height: 50px;
+  background: #e6e6e6;
+  border-radius: 3px;
+  padding: 0 20px 0 20px;
+}
+
+.focus-input100 {
+  position: absolute;
+  border: 1px solid #827ffe;
+  border-radius: 3px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.input100:focus + .focus-input100 {
+  visibility: visible;
+  opacity: 1;
+}
+
+.container-login100-form-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.login100-form-btn {
+  font-family: 'Ubuntu-Bold', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  height: 50px;
+  background-color: #827ffe;
+  border-radius: 3px;
+  transition: all 0.4s;
+}
+
+.login100-form-btn:hover {
+  background-color: #403866;
+}
+
+/* Optional: Responsive */
+@media (max-width: 576px) {
+  .wrap-login100 {
+    padding: 40px 20px;
+  }
+}
