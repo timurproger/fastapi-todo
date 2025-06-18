@@ -33,7 +33,7 @@ function Register({ onShowLogin }: RegisterProps) {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/auth/register", {
+      const response = await fetch("/auth/register", { // изменено на относительный путь
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -95,6 +95,7 @@ function Register({ onShowLogin }: RegisterProps) {
                 placeholder="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                required
               />
               <span className="focus-input100"></span>
             </div>
@@ -106,6 +107,7 @@ function Register({ onShowLogin }: RegisterProps) {
                 placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <span className="focus-input100"></span>
             </div>
@@ -117,7 +119,7 @@ function Register({ onShowLogin }: RegisterProps) {
                 onClick={handleRegister}
                 disabled={loading}
               >
-                {loading ? "Загрузка..." : "sign up"}
+                {loading ? "Загрузка..." : "Sign Up"}
               </button>
             </div>
 

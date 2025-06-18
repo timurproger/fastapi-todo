@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './TaskForm.css'
+import "./TaskForm.css";
 
 interface TaskFormProps {
   initialData?: {
@@ -13,7 +13,7 @@ interface TaskFormProps {
     name: string;
     description?: string;
     deadline?: string | null;
-    type?: string | null;
+    task_type?: string | null;
     is_done: boolean;
   }) => void;
   onCancel: () => void;
@@ -35,7 +35,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialData, onSave, onCancel }) =>
         description: initialData.description || "",
         deadline: initialData.deadline || "",
         task_type: initialData.task_type || "",
-        is_done: initialData.is_done || false,
+        is_done: initialData.is_done ?? false,
       });
     } else {
       setForm({
@@ -58,18 +58,18 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialData, onSave, onCancel }) =>
     }));
   };
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim()) {
       alert("Name is required");
       return;
     }
-    // Подготовка данных для API — соответствуем модели STaskUpdate
     onSave({
       name: form.name,
       description: form.description || undefined,
       deadline: form.deadline ? new Date(form.deadline).toISOString() : null,
-      type: form.task_type || null,
+      task_type: form.task_type || null,
       is_done: form.is_done,
     });
   };
@@ -78,11 +78,11 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialData, onSave, onCancel }) =>
     <div className="taskform-wrapper" onClick={onCancel}>
       <div className="taskform-container" onClick={(e) => e.stopPropagation()}>
         <form onSubmit={handleSubmit}>
-          <h2 style={{ color: "#403866", marginBottom: "30px", textAlign: "center" }}>
+          <h2 style={{ color: "#403866", marginBottom: 30, textAlign: "center" }}>
             {initialData ? "Edit Task" : "Create Task"}
           </h2>
 
-          <label style={{ color: "#555", fontSize: "14px" }}>Task Name *</label>
+          <label style={{ color: "#555", fontSize: 14 }}>Task Name *</label>
           <input
             type="text"
             name="name"
@@ -92,16 +92,16 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialData, onSave, onCancel }) =>
             required
             style={{
               width: "100%",
-              height: "40px",
-              marginBottom: "20px",
+              height: 40,
+              marginBottom: 20,
               padding: "0 12px",
-              fontSize: "16px",
-              borderRadius: "6px",
+              fontSize: 16,
+              borderRadius: 6,
               border: "1px solid #ccc",
             }}
           />
 
-          <label style={{ color: "#555", fontSize: "14px" }}>Description</label>
+          <label style={{ color: "#555", fontSize: 14 }}>Description</label>
           <textarea
             name="description"
             value={form.description}
@@ -110,16 +110,16 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialData, onSave, onCancel }) =>
             rows={4}
             style={{
               width: "100%",
-              marginBottom: "20px",
+              marginBottom: 20,
               padding: "10px 12px",
-              fontSize: "16px",
-              borderRadius: "6px",
+              fontSize: 16,
+              borderRadius: 6,
               border: "1px solid #ccc",
               resize: "vertical",
             }}
           />
 
-          <label style={{ color: "#555", fontSize: "14px" }}>Deadline</label>
+          <label style={{ color: "#555", fontSize: 14 }}>Deadline</label>
           <input
             type="datetime-local"
             name="deadline"
@@ -127,16 +127,16 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialData, onSave, onCancel }) =>
             onChange={handleChange}
             style={{
               width: "100%",
-              height: "40px",
-              marginBottom: "20px",
+              height: 40,
+              marginBottom: 20,
               padding: "0 12px",
-              fontSize: "16px",
-              borderRadius: "6px",
+              fontSize: 16,
+              borderRadius: 6,
               border: "1px solid #ccc",
             }}
           />
 
-          <label style={{ color: "#555", fontSize: "14px" }}>Task Type</label>
+          <label style={{ color: "#555", fontSize: 14 }}>Task Type</label>
           <input
             type="text"
             name="task_type"
@@ -145,53 +145,22 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialData, onSave, onCancel }) =>
             placeholder="e.g. Personal, Work (optional)"
             style={{
               width: "100%",
-              height: "40px",
-              marginBottom: "30px",
+              height: 40,
+              marginBottom: 30,
               padding: "0 12px",
-              fontSize: "16px",
-              borderRadius: "6px",
+              fontSize: 16,
+              borderRadius: 6,
               border: "1px solid #ccc",
             }}
           />
 
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              height: "45px",
-              backgroundColor: "#827ffe",
-              color: "white",
-              fontWeight: "700",
-              fontSize: "16px",
-              border: "none",
-              borderRadius: "6px",
-              cursor: "pointer",
-              marginBottom: "12px",
-              transition: "background-color 0.3s",
-            }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#403866")}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#827ffe")}
-          >
+
+
+          <button type="submit" className="btn-primary">
             Save
           </button>
 
-          <button
-            type="button"
-            onClick={onCancel}
-            style={{
-              width: "100%",
-              height: "45px",
-              backgroundColor: "#aaa",
-              color: "white",
-              fontWeight: "700",
-              fontSize: "16px",
-              border: "none",
-              borderRadius: "6px",
-              cursor: "pointer",
-            }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#888")}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#aaa")}
-          >
+          <button type="button" onClick={onCancel} className="btn-secondary">
             Cancel
           </button>
         </form>

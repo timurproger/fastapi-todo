@@ -20,7 +20,7 @@ function Login({ onLogin, onShowRegister }: LoginProps) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:8000/auth/login", {
+      const response = await fetch("/auth/login", {  // <- изменено на относительный путь
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

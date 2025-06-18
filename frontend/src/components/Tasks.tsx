@@ -25,7 +25,9 @@ const Toolbar: React.FC<{ onCreate: () => void; onLogout: () => void }> = ({
 }) => (
   <div className="toolbar">
     <button onClick={onCreate}>Create Task</button>
-    <button onClick={onLogout} className="logout-btn">Logout</button>
+    <button onClick={onLogout} className="logout-btn">
+      Logout
+    </button>
   </div>
 );
 
@@ -36,12 +38,14 @@ const Tasks: React.FC<TasksProps> = ({ token, onLogout }) => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "done" | "not_done">("all");
-  const [confirmDeleteTaskId, setConfirmDeleteTaskId] = useState<number | null>(null);
+  const [confirmDeleteTaskId, setConfirmDeleteTaskId] = useState<number | null>(
+    null
+  );
 
   const loadTasks = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/tasks", {
+      const res = await fetch("/tasks", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -74,9 +78,7 @@ const Tasks: React.FC<TasksProps> = ({ token, onLogout }) => {
     is_done: boolean;
   }) => {
     const method = editingTask ? "PUT" : "POST";
-    const url = editingTask
-      ? `http://localhost:8000/tasks/${editingTask.id}`
-      : "http://localhost:8000/tasks";
+    const url = editingTask ? `/tasks/${editingTask.id}` : "/tasks";
 
     const dataToSend = {
       ...taskData,
@@ -110,33 +112,31 @@ const Tasks: React.FC<TasksProps> = ({ token, onLogout }) => {
   };
 
   const toggleDone = async (task: Task, isDone: boolean) => {
-  setTasks((prev) =>
-    prev.map((t) => (t.id === task.id ? { ...t, is_done: isDone } : t))
-  );
+    setTasks((prev) =>
+      prev.map((t) => (t.id === task.id ? { ...t, is_done: isDone } : t))
+    );
 
-  try {
-    const res = await fetch(`http://localhost:8000/tasks/${task.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ is_done: isDone }), // 👈 фикс здесь
-    });
+    try {
+      const res = await fetch(`/tasks/${task.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ is_done: isDone }),
+      });
 
-    if (!res.ok) {
-      toast.error("Failed to update task status.");
+      if (!res.ok) {
+        toast.error("Failed to update task status.");
+      }
+    } catch {
+      toast.error("Network error while updating task.");
     }
-  } catch {
-    toast.error("Network error while updating task.");
-  }
-};
-
-
+  };
 
   const deleteTask = async (id: number) => {
     try {
-      const res = await fetch(`http://localhost:8000/tasks/${id}`, {
+      const res = await fetch(`/tasks/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -151,7 +151,7 @@ const Tasks: React.FC<TasksProps> = ({ token, onLogout }) => {
     } catch {
       toast.error("Network error while deleting.");
     } finally {
-      setConfirmDeleteTaskId(null); // закрыть подтверждение
+      setConfirmDeleteTaskId(null);
     }
   };
 
@@ -244,7 +244,10 @@ const Tasks: React.FC<TasksProps> = ({ token, onLogout }) => {
                   style={{ cursor: "pointer" }}
                 >
                   <div className="task-header">
-                    <div className="task-title" style={{ fontSize: "18px", fontWeight: "bold" }}>
+                    <div
+                      className="task-title"
+                      style={{ fontSize: "18px", fontWeight: "bold" }}
+                    >
                       {task.name}
                     </div>
                     <div className="task-created">{created}</div>
@@ -263,7 +266,10 @@ const Tasks: React.FC<TasksProps> = ({ token, onLogout }) => {
                     </div>
                   </div>
                 </div>
-                <button className="delete-btn" onClick={() => setConfirmDeleteTaskId(task.id)}>
+                <button
+                  className="delete-btn"
+                  onClick={() => setConfirmDeleteTaskId(task.id)}
+                >
                   🗑
                 </button>
               </li>
@@ -276,11 +282,15 @@ const Tasks: React.FC<TasksProps> = ({ token, onLogout }) => {
         <div className="modal-overlay" onClick={() => setShowForm(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <TaskForm
-              initialData={editingTask ? {
-                ...editingTask,
-                deadline: editingTask.deadline ?? undefined,
-                task_type: editingTask.task_type ?? undefined,
-              } : undefined}
+              initialData={
+                editingTask
+                  ? {
+                      ...editingTask,
+                      deadline: editingTask.deadline ?? undefined,
+                      task_type: editingTask.task_type ?? undefined,
+                    }
+                  : undefined
+              }
               onCancel={() => setShowForm(false)}
               onSave={saveTask}
             />
@@ -293,16 +303,32 @@ const Tasks: React.FC<TasksProps> = ({ token, onLogout }) => {
         <div className="modal-overlay" onClick={() => setConfirmDeleteTaskId(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h3>Are you sure you want to delete this task?</h3>
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "20px",
+              }}
+            >
               <button
                 onClick={() => deleteTask(confirmDeleteTaskId)}
-                style={{ backgroundColor: "#d9534f", color: "white", padding: "10px 20px", borderRadius: "4px" }}
+                style={{
+                  backgroundColor: "#d9534f",
+                  color: "white",
+                  padding: "10px 20px",
+                  borderRadius: "4px",
+                }}
               >
                 Yes, Delete
               </button>
               <button
                 onClick={() => setConfirmDeleteTaskId(null)}
-                style={{ backgroundColor: "#aaa", color: "white", padding: "10px 20px", borderRadius: "4px" }}
+                style={{
+                  backgroundColor: "#aaa",
+                  color: "white",
+                  padding: "10px 20px",
+                  borderRadius: "4px",
+                }}
               >
                 Cancel
               </button>
