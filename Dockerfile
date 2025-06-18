@@ -1,14 +1,17 @@
 FROM python:3.12
 
-# Установка рабочей директории внутри контейнера
 WORKDIR /app
 
-# Копируем зависимости и устанавливаем их
-COPY requirements.txt .
+# Копируем весь src целиком в /app/src
+COPY ./src /app/src
+
+# Копируем requirements.txt, если он в корне проекта
+COPY requirements.txt /app/
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем все из папки src в /app внутри контейнера
-COPY ./src /app
+# Рабочая директория для запуска — /app
+WORKDIR /app
 
-# Запуск Uvicorn с правильным импортом
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Запускаем uvicorn, указывая app из src.main
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
