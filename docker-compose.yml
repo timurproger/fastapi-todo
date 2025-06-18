@@ -8,10 +8,10 @@ services:
       - "8000:8000"
     volumes:
       - ./src:/app
+    env_file:
+      - .env
     environment:
       - PYTHONUNBUFFERED=1
-      - JWT_SECRET_KEY=some_super_secret_key
-      - JWT_ACCESS_COOKIE_NAME=access_token_cookie
 
   frontend:
     build: ./frontend
