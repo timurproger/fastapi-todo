@@ -1,15 +1,13 @@
 import os
-
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+from sqlalchemy import inspect
 
 from models.base import Model
 
 DB_PATH = "tasks.db"
 
 engine = create_async_engine(f'sqlite+aiosqlite:///{DB_PATH}')
-
 new_session = async_sessionmaker(engine, expire_on_commit=False)
-
 
 
 async def create_tables():
@@ -22,11 +20,22 @@ async def delete_tables():
 
 
 async def initialize_database():
-    db_exists = os.path.exists(DB_PATH)
-
-    if not db_exists:
+    if not os.path.exists(DB_PATH):
         print("БД не найдена. Создаём...")
         await create_tables()
         print("БД успешно создана.")
+        return
+
+    async with engine.begin() as conn:
+        def check_tables(connection):
+            inspector = inspect(connection)
+            return inspector.get_table_names()
+
+        tables = await conn.run_sync(check_tables)
+
+    if not tables:
+        print("БД существует, но таблиц нет. Создаём таблицы...")
+        await create_tables()
+        print("Таблицы успешно созданы.")
     else:
-        print("БД уже существует. Пропускаем создание.")
+        print(f"БД и таблицы уже существуют ({tables}). Пропускаем создание.")
