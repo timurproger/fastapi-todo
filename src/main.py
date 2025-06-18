@@ -4,21 +4,18 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from authx.exceptions import MissingTokenError, JWTDecodeError
 
-from database.db import create_tables, delete_tables
+from database.db import initialize_database
 from api import main_router
 from fastapi.middleware.cors import CORSMiddleware
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await delete_tables()
-    print('база очищина')
-    await create_tables()
-    print('база готова к работе')
+    await initialize_database()
     yield
-    print('Выключение')
+    print("Выключение")
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 @app.exception_handler(MissingTokenError)
 async def missing_token_handler(request: Request, exc: MissingTokenError):
     return JSONResponse(
@@ -46,4 +43,4 @@ app.add_middleware(
 
 
 if(__name__ == '__main__'):
-    uvicorn.run('main:app', reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
