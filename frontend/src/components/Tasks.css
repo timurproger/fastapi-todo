@@ -1,17 +1,20 @@
 /* Общие стили контейнера и шрифты */
 .tasks-container {
-  max-width: 600px;
+  max-width: 900px; /* увеличено с 600px */
   margin: 40px auto;
   font-family: 'Ubuntu', sans-serif;
   color: #403866;
-  padding: 0 15px;
+  padding: 0 25px;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
 }
 
 h2 {
   text-align: center;
   font-weight: 700;
   margin-bottom: 25px;
-  font-size: 32px;
+  font-size: 36px;
 }
 
 /* Кнопки */
@@ -42,12 +45,12 @@ button:hover {
 
 .tasks-list li {
   background-color: #f3f3f9;
-  border-radius: 8px;
-  padding: 15px 20px;
-  margin-bottom: 12px;
+  border-radius: 10px;
+  padding: 20px 25px;
+  margin-bottom: 15px;
   cursor: pointer;
   transition: background-color 0.25s ease;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
 .tasks-list li:hover {
@@ -70,7 +73,7 @@ button:hover {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(64, 56, 102, 0.8); /* более темный полупрозрачный фон */
+  background: rgba(64, 56, 102, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,15 +84,15 @@ button:hover {
 
 .modal-content {
   background: #fff;
-  padding: 30px 35px;
-  border-radius: 12px;
-  max-width: 480px;
+  padding: 35px 45px;
+  border-radius: 14px;
+  max-width: 450px; /* увеличено */
   width: 100%;
   box-shadow: 0 8px 25px rgba(64, 56, 102, 0.3);
   position: relative;
 }
 
-/* Кнопка закрытия модалки (опционально, если есть) */
+/* Кнопка закрытия модалки */
 .modal-close-btn {
   position: absolute;
   top: 14px;
@@ -108,14 +111,14 @@ button:hover {
 
 .task-item {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  gap: 10px;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .task-item input[type="checkbox"] {
   transform: scale(1.3);
   cursor: pointer;
+  margin-top: 5px;
 }
 
 .task-controls {
@@ -135,4 +138,122 @@ button:hover {
 
 .delete-btn:hover {
   color: #900;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.toolbar button {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.logout-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Поисковая и фильтрационная панель */
+.search-filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f3f3f9;
+  padding: 20px 25px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 1px 4px rgba(64, 56, 102, 0.1);
+}
+
+.search-filter-bar input,
+.search-filter-bar select {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: 'Ubuntu', sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-filter-bar input:focus,
+.search-filter-bar select:focus {
+  outline: none;
+  border-color: #827ffe;
+  box-shadow: 0 0 0 2px rgba(130, 127, 254, 0.2);
+}
+
+/* Содержимое задачи */
+.task-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.task-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #403866;
+}
+
+.task-desc {
+  font-size: 15px;
+  color: #555;
+  font-style: italic;
+  max-width: 70%;
+}
+
+.task-deadline {
+  font-size: 14px;
+  color: #403866;
+  text-align: right;
+}
+
+.task-deadline.overdue {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.task-body {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 5px;
+}
+
+/* Панель инструментов и фильтра */
+.fixed-toolbar-container {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 10px 0;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgb(64 56 102 / 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Прокручиваемый список задач */
+.tasks-list-scroll {
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 12px;
 }

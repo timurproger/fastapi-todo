@@ -22,8 +22,9 @@ class STaskUpdate(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     is_done: Optional[bool] = None
-    due_time: Optional[datetime] = None
+    deadline: Optional[datetime] = None
     type: Optional[str] = None
+
 
 class STaskId(BaseModel):
     ok: bool = True
