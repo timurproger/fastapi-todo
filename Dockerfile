@@ -1,14 +1,14 @@
 FROM python:3.12
 
-# Установка зависимостей
+# Установка рабочей директории внутри контейнера
 WORKDIR /app
 
+# Копируем зависимости и устанавливаем их
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем код
-COPY  /.src /app
+# Копируем все из папки src в /app внутри контейнера
+COPY ./src /app
 
-# Запуск Uvicorn
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Запуск Uvicorn с правильным импортом
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
