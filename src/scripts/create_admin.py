@@ -1,11 +1,11 @@
-# python -m src.scripts.create_admin -u admin2 -p admin
+# python -m scripts.create_admin -u admin2 -p admin
 import argparse
 import asyncio
 
-from src.repositories.user_repository import UserRepository
+from repositories.user_repository import UserRepository
 
 
-from src.schemas.users import SUsersAdd, UserRole
+from schemas.users import SUsersAdd, UserRole
 
 
 async def create_admin(username: str, password: str):

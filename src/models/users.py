@@ -1,8 +1,8 @@
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.models.base import Model
-from src.models.tasks import TaskOrm
+from models.base import Model
+from models.tasks import TaskOrm
 
 
 class UserOrm(Model):

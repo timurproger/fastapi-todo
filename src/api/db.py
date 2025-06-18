@@ -1,10 +1,10 @@
 from fastapi import APIRouter, HTTPException
 
 
-from src.api.dependencies import dep_auth
+from api.dependencies import dep_auth
 from database.db import create_tables, delete_tables
-from src.schemas.users import UserRole
-from src.schemas.db import SCreateOrDownDB
+from schemas.users import UserRole
+from schemas.db import SCreateOrDownDB
 
 router = APIRouter(prefix='/db', tags=['DB'], dependencies=[dep_auth])
 

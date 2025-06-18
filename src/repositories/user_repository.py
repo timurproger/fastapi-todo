@@ -1,11 +1,11 @@
 from fastapi import HTTPException
 from sqlalchemy import select, delete
 
-from src.config.auth import security
+from config.auth import security
 from database.db import new_session
-from src.models.users import UserOrm
+from models.users import UserOrm
 from utils.password import hash_password, verify_password
-from src.schemas.users import SUsersAdd, SUsers, SUserLogin, UserRole
+from schemas.users import SUsersAdd, SUsers, SUserLogin, UserRole
 
 
 class UserRepository:
@@ -76,10 +76,24 @@ class UserRepository:
             user = result.scalar_one_or_none()
 
             if user is None:
-                return None  # или можно raise HTTPException(status_code=404)
+                return None  # Или raise HTTPException(status_code=404, detail="User not found")
 
-            user_dict['password'] = hash_password(user_dict.pop("password"))
-            print(user_dict)
+            # Проверка, изменился ли username
+            new_username = user_dict.get("username")
+            if new_username and new_username != user.username:
+                # Проверяем, есть ли другой пользователь с таким username
+                query_username = select(UserOrm).where(UserOrm.username == new_username, UserOrm.id != user_id)
+                result_username = await session.execute(query_username)
+                existing_user = result_username.scalar_one_or_none()
+
+                if existing_user:
+                    raise HTTPException(status_code=400, detail="Username already exists")
+
+            # Обработка пароля (если есть)
+            if "password" in user_dict and user_dict["password"] is not None:
+                user_dict["password"] = hash_password(user_dict.pop("password"))
+
+            # Обновляем остальные поля
             for key, value in user_dict.items():
                 if hasattr(user, key) and value is not None:
                     setattr(user, key, value)

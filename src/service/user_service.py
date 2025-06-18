@@ -1,9 +1,9 @@
 from fastapi import Depends, HTTPException, APIRouter, Response, Request
 
 from config.auth import config
-from src.schemas.users import SUserDel, SUserLogin, SUsers, SUsersAdd, SUserReg, SToken
-from src.repositories.user_repository import UserRepository
-from src.schemas.users import UserRole
+from schemas.users import SUserDel, SUserLogin, SUsers, SUsersAdd, SUserReg, SToken
+from repositories.user_repository import UserRepository
+from schemas.users import UserRole
 
 class UserService:
     @classmethod

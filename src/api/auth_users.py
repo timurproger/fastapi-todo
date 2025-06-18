@@ -2,10 +2,10 @@ from typing import Annotated
 
 from fastapi import Depends, HTTPException, APIRouter, Response, Request
 
-from src.service.user_service import UserService
-from src.config.auth import config
-from src.repositories.user_repository import UserRepository
-from src.schemas.users import SUsersAdd, SUserLogin,SToken, SUserReg
+from service.user_service import UserService
+from config.auth import config
+from repositories.user_repository import UserRepository
+from schemas.users import SUsersAdd, SUserLogin,SToken, SUserReg
 
 router = APIRouter(prefix='/auth', tags=['Users'])
 

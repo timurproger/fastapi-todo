@@ -4,9 +4,9 @@ from typing import Annotated
 from fastapi import HTTPException, APIRouter, Depends
 
 from service.user_service import UserService
-from src.api.dependencies import dep_auth
-from src.repositories.user_repository import UserRepository
-from src.schemas.users import SUserLogin, UserRole, SUsers, SUserDel
+from api.dependencies import dep_auth
+from repositories.user_repository import UserRepository
+from schemas.users import SUserLogin, UserRole, SUsers, SUserDel
 
 router = APIRouter(prefix='/users', tags=['Users'], dependencies=[dep_auth])
 

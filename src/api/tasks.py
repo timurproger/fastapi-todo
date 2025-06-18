@@ -2,10 +2,10 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from service.task_servise import TaskService
-from src.api.dependencies import dep_auth
-from src.config.auth import security
-from src.repositories.task_repository import TaskRepository
-from src.schemas.tasks import STaskAdd, STask, STaskId, STaskUpdate
+from api.dependencies import dep_auth
+from config.auth import security
+from repositories.task_repository import TaskRepository
+from schemas.tasks import STaskAdd, STask, STaskId, STaskUpdate
 
 router = APIRouter(prefix='/tasks', tags=['Tasks'], dependencies=[dep_auth])
 

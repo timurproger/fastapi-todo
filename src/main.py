@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from authx.exceptions import MissingTokenError, JWTDecodeError
 
 from database.db import create_tables, delete_tables
-from src.api import main_router
+from api import main_router
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -46,4 +46,4 @@ app.add_middleware(
 
 
 if(__name__ == '__main__'):
-    uvicorn.run('src.main:app', reload=True)
+    uvicorn.run('main:app', reload=True)

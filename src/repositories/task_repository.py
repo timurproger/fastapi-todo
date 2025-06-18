@@ -3,8 +3,8 @@ from datetime import datetime
 from sqlalchemy import select, delete
 
 from database.db import new_session
-from src.models.tasks import TaskOrm
-from src.schemas.tasks import STaskAdd, STask, STaskUpdate
+from models.tasks import TaskOrm
+from schemas.tasks import STaskAdd, STask, STaskUpdate
 
 
 class TaskRepository:

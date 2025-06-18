@@ -4,7 +4,7 @@ from typing import Optional
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, DeclarativeBase, mapped_column, relationship
 
-from src.models.base import Model
+from models.base import Model
 
 
 class TaskOrm(Model):
